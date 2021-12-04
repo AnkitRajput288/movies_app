@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:deepika_assignment/Network/Database/moor_database.dart';
 import 'package:deepika_assignment/Screens/Account/login_screen.dart';
 import 'package:deepika_assignment/Screens/Account/otp_screen.dart';
-import 'package:deepika_assignment/Screens/add_new_card_item.dart';
+import 'package:deepika_assignment/Screens/add_update_movie_widget.dart';
 import 'package:deepika_assignment/Screens/select_image.dart';
 import 'package:deepika_assignment/Utils/color_utils.dart';
 import 'package:deepika_assignment/Utils/exception_utils.dart';
@@ -80,7 +80,7 @@ class SheetPopupUtils {
           builder: (_context, scrollController) {
             return _getBottomSheetBackdropFilterWidget(
               context,
-              child: AddItemScreen(movie: movie,),
+              child: AddUpdateMovieWidget(movie: movie,),
             );
           },
         );

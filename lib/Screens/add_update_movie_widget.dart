@@ -15,20 +15,20 @@ import 'package:deepika_assignment/Utils/app_utils.dart';
 import '../main.dart';
 
 
-class AddItemScreen extends StatefulWidget {
+class AddUpdateMovieWidget extends StatefulWidget {
   final Movie? movie;
 
-  const AddItemScreen({this.movie, Key? key}) : super(key: key);
+  const AddUpdateMovieWidget({this.movie, Key? key}) : super(key: key);
 
   @override
-  _AddItemScreenState createState() => _AddItemScreenState(movie);
+  _AddUpdateMovieWidgetState createState() => _AddUpdateMovieWidgetState(movie);
 }
 
-class _AddItemScreenState extends State<AddItemScreen> {
+class _AddUpdateMovieWidgetState extends State<AddUpdateMovieWidget> {
 
   Movie? movie;
 
-  _AddItemScreenState(this.movie);
+  _AddUpdateMovieWidgetState(this.movie);
 
   String? assetImage;
   //String? image;

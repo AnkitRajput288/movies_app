@@ -25,13 +25,11 @@ class AccountProvider extends ChangeNotifier {
 
   bool get isLogin => _isLogin;
 
-  GetOtpForMobileResponse? _getOtpForMobileResponse;
+  VerificationOtpResponse? verificationOtpResponse;
 
-  GetOtpForMobileResultResponse? get getOtpForMobile => _getOtpForMobileResponse?.results ?? null;
+  VerificationOtpResultResponse? get getVerificationOtpResponse => verificationOtpResponse?.results;
 
-  VerificationOtpResponse? _getVerificationOtpResponse;
-
-  VerificationOtpResultResponse? get getVerificationOtpResponse => _getVerificationOtpResponse?.results ?? null;
+  int get _getLoggedInUserId => verificationOtpResponse?.results?.userLoginId ?? -1;
 
   bool _isApiCallingVerifyOtp = false;
   bool _isApiCallingSendOtp = false;
@@ -49,7 +47,7 @@ class AccountProvider extends ChangeNotifier {
 
   Future<void> _refreshLoginState() async {
     this._isLogin = await SharedPrefUtil.isLogin();
-    this._getVerificationOtpResponse = await SharedPrefUtil.getLoginData();
+    this.verificationOtpResponse = await SharedPrefUtil.getLoginData();
     notifyListeners();
   }
 
@@ -96,6 +94,8 @@ class AccountProvider extends ChangeNotifier {
   static hitVerificationOtpApi(BuildContext context, VerificationOtpRequest verificationOtpRequest) => context.read(accountProvider)._hitApiForVerificationOtp(verificationOtpRequest);
 
   static checkLoginAndMoveRed(BuildContext context, Function? _functionToExecuteIfLoggedIn) => context.read(accountProvider).checkLoginAndMove(context, _functionToExecuteIfLoggedIn);
+  
+  static int getLoggedInUserId(BuildContext context) => context.read(accountProvider)._getLoggedInUserId;
 
   static logoutRead(BuildContext context) => context.read(accountProvider).logout(context);
 }

@@ -21,6 +21,7 @@ class CommonMoviesList extends StatefulWidget {
 class _CommonMoviesListState extends State<CommonMoviesList> {
 
   List<Movie>? movies;
+  late int _loggedInUserId;
 
   _CommonMoviesListState(this.movies);
 
@@ -32,6 +33,7 @@ class _CommonMoviesListState extends State<CommonMoviesList> {
 
   @override
   Widget build(BuildContext context,) {
+    _loggedInUserId = AccountProvider.getLoggedInUserId(context);
     return _buildMainWidget();
   }
 
@@ -102,24 +104,30 @@ class _CommonMoviesListState extends State<CommonMoviesList> {
             },
           ),
           CustomWidget.getDefaultHeightSizedBox(),
-          _commonWatchAndEditAndDeleteUI(
-            icon: Icons.edit,
-            color: ColorUtils.greyIconColor,
-            onTap: () {
-              AccountProvider.checkLoginAndMoveRed(context, () {
-                SheetPopupUtils.instance.showBottomSheetAddMovie(context, movie: movieData,);
-              });
-            },
+          Visibility(
+            visible: _loggedInUserId == movieData.directorID,
+            child: _commonWatchAndEditAndDeleteUI(
+              icon: Icons.edit,
+              color: ColorUtils.greyIconColor,
+              onTap: () {
+                AccountProvider.checkLoginAndMoveRed(context, () {
+                  SheetPopupUtils.instance.showBottomSheetAddMovie(context, movie: movieData,);
+                });
+              },
+            ),
           ),
           CustomWidget.getDefaultHeightSizedBox(),
-          _commonWatchAndEditAndDeleteUI(
-            icon: Icons.delete_outline,
-            color: ColorUtils.redColor,
-            onTap: () {
-              setState(() {
-                database.deleteMovie(movieData);
-              });
-            },
+          Visibility(
+            visible: _loggedInUserId == movieData.directorID,
+            child: _commonWatchAndEditAndDeleteUI(
+              icon: Icons.delete_outline,
+              color: ColorUtils.redColor,
+              onTap: () {
+                setState(() {
+                  database.deleteMovie(movieData);
+                });
+              },
+            ),
           )
         ],
       ),
