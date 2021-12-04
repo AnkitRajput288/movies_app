@@ -162,8 +162,7 @@ class _DashboardState extends State<Dashboard>
   }
 
   void _tabAlreadySelected(int index) {
-    if (index == 0) {
-    } else if (index == 1) {}
+
   }
 
   Widget buildPageView() {
@@ -174,7 +173,7 @@ class _DashboardState extends State<Dashboard>
       onPageChanged: (index) {
         pageChanged(index);
       },
-      children: <Widget>[homePage, /*categoryB, categoryC*/],
+      children: <Widget>[homePage, myMovies, myWatched],
     );
   }
 

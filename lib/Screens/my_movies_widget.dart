@@ -26,9 +26,10 @@ class _MyMoviesWidgetState extends State<MyMoviesWidget>{
       builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
 
         var _listOfFilteredMovies = <Movie>[];
-
         snapshot.data?.forEach((element) {
-          if(element.directorID == )
+          if(element.directorID == 1) {
+            _listOfFilteredMovies.add(element);
+          }
         });
         return CommonMoviesList(movies: _listOfFilteredMovies);
       },

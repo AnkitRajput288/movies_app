@@ -25,6 +25,12 @@ class _CommonMoviesListState extends State<CommonMoviesList> {
   _CommonMoviesListState(this.movies);
 
   @override
+  void didUpdateWidget(covariant CommonMoviesList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    movies = widget.movies;
+  }
+
+  @override
   Widget build(BuildContext context,) {
     return _buildMainWidget();
   }

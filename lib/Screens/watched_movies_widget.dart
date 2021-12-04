@@ -22,7 +22,15 @@ class _WatchedMoviesWidgetState extends State<WatchedMoviesWidget>{
     return StreamBuilder(
       stream: database.watchAllMovies(),
       builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
-        return CommonMoviesList(movies: snapshot.data);
+
+        var _listOfFilteredMovies = <Movie>[];
+        snapshot.data?.forEach((element) {
+          if(element.isMovieWatched) {
+            _listOfFilteredMovies.add(element);
+          }
+        });
+
+        return CommonMoviesList(movies: _listOfFilteredMovies);
       },
     );
   }
