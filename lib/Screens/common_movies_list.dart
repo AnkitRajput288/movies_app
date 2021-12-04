@@ -12,19 +12,21 @@ import 'detail_page.dart';
 
 class CommonMoviesList extends StatefulWidget {
   final List<Movie>? movies;
+  final String? module;
 
-  const CommonMoviesList({this.movies, Key? key}) : super(key: key);
+  const CommonMoviesList({this.movies,this.module, Key? key}) : super(key: key);
 
   @override
-  _CommonMoviesListState createState() => _CommonMoviesListState(movies);
+  _CommonMoviesListState createState() => _CommonMoviesListState(movies,module);
 }
 
 class _CommonMoviesListState extends State<CommonMoviesList> {
 
   List<Movie>? movies;
+  String? module;
   late int _loggedInUserId;
 
-  _CommonMoviesListState(this.movies);
+  _CommonMoviesListState(this.movies, this.module);
 
   Future<void>_loadDummyDataAndSaveToDatabase()async{
     var listOfMovies = ListOfObjectsUtils().getMovieData();
@@ -40,7 +42,13 @@ class _CommonMoviesListState extends State<CommonMoviesList> {
   @override
   Widget build(BuildContext context,) {
     _loggedInUserId = AccountProvider.getLoggedInUserId(context);
-   return Expanded(
+   return _infiniteScrollListWidget();
+  }
+
+  Widget _infiniteScrollListWidget(){
+    return module == 'MyMovies' || module == 'WatchedMovies' ?
+    _buildMainWidget() :
+      Expanded(
         child: NotificationListener(
           child: _buildMainWidget(),
           onNotification: (ScrollNotification scrollInfo) {
@@ -52,6 +60,7 @@ class _CommonMoviesListState extends State<CommonMoviesList> {
           },
         )
     );
+
   }
 
   Widget _buildMainWidget() {

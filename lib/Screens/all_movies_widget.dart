@@ -22,7 +22,7 @@ class _AllMoviesWidgetState extends State<AllMoviesWidget>{
     return StreamBuilder(
       stream: database.watchAllMovies(),
       builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
-        return CommonMoviesList(movies: snapshot.data);
+        return CommonMoviesList(movies: snapshot.data, module: 'AllMovies',);
       },
     );
   }

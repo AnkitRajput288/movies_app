@@ -30,7 +30,7 @@ class _WatchedMoviesWidgetState extends State<WatchedMoviesWidget>{
           }
         });
 
-        return CommonMoviesList(movies: _listOfFilteredMovies);
+        return CommonMoviesList(movies: _listOfFilteredMovies, module: 'WatchedMovies',);
       },
     );
   }

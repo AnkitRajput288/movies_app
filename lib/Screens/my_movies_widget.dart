@@ -30,7 +30,7 @@ class _MyMoviesWidgetState extends State<MyMoviesWidget>{
             _listOfFilteredMovies.add(element);
           }
         });
-        return CommonMoviesList(movies: _listOfFilteredMovies);
+        return CommonMoviesList(movies: _listOfFilteredMovies, module: 'MyMovies',);
       },
     );
   }
