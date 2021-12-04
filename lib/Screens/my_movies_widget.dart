@@ -24,7 +24,6 @@ class _MyMoviesWidgetState extends State<MyMoviesWidget>{
     return StreamBuilder(
       stream: database.watchAllMovies(),
       builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
-
         var _listOfFilteredMovies = <Movie>[];
         snapshot.data?.forEach((element) {
           if(element.directorID == 1) {

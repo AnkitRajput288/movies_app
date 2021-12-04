@@ -1,15 +1,10 @@
 import 'dart:math';
-
-import 'package:deepika_assignment/Model/Movies.dart';
 import 'package:deepika_assignment/Network/Database/moor_database.dart';
 import 'package:deepika_assignment/Utils/size_utils.dart';
 import 'package:deepika_assignment/Utils/toast_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
 import 'package:deepika_assignment/Screens/select_image.dart';
-import 'package:deepika_assignment/Utils/list_of_objects_utils.dart';
 import 'package:deepika_assignment/Utils/app_utils.dart';
 
 import '../main.dart';

@@ -1,13 +1,12 @@
 import 'package:deepika_assignment/Network/Database/moor_database.dart';
-import 'package:deepika_assignment/Provider/ProviderUtils.dart';
 import 'package:deepika_assignment/Provider/account_provider.dart';
 import 'package:deepika_assignment/SheetUtils/sheet_popup_utils.dart';
 import 'package:deepika_assignment/Utils/color_utils.dart';
-import 'package:deepika_assignment/Utils/list_of_objects_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
 import 'package:hooks_riverpod/all.dart';
 import '../main.dart';
+import 'detail_page.dart';
 
 class CommonMoviesList extends StatefulWidget {
   final List<Movie>? movies;
@@ -55,7 +54,9 @@ class _CommonMoviesListState extends State<CommonMoviesList> {
 
   Widget _commonCardUI(Movie movieData){
     return InkWell(
-      onTap: (){},
+      onTap: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailPage(movieDetail: movieData,)));
+      },
       child: Container(
         child: Card(
           elevation: 4.0,
@@ -90,7 +91,7 @@ class _CommonMoviesListState extends State<CommonMoviesList> {
 
   Widget _cardActionUI(Movie movieData){
     return  Padding(
-      padding: const EdgeInsets.only(right: 8.0),
+      padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
       child: Column(
         children: [
           CustomWidget.getDefaultHeightSizedBox(),

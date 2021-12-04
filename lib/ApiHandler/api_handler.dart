@@ -1,7 +1,9 @@
 
+import 'package:deepika_assignment/Model/Movies.dart';
 import 'package:deepika_assignment/Model/Request/Account/VerificationOtpRequest.dart';
 import 'package:deepika_assignment/Model/Response/VerificationOtpResponse.dart';
 import 'package:deepika_assignment/Model/Response/VerificationOtpResultResponse.dart';
+import 'package:deepika_assignment/Utils/list_of_objects_utils.dart';
 
 
 class ApiHandler{
@@ -14,7 +16,17 @@ class ApiHandler{
   }
 
   static final instance = ApiHandler();
+  /*
+  final int _countOfElementToReturnViaApi = 5;
 
+  List<Movies> getMovieData(){
+    var _listOfAllMovieData = <Movies>[];
+    for(int index = 0 ; index < _countOfElementToReturnViaApi; index++) {
+      var getRandomMovieItem = ListOfObjectsUtils.getRandomObject();
+      _listOfAllMovieData.add(getRandomMovieItem);
+    }
+    return _listOfAllMovieData;
+  }*/
 
   static VerificationOtpResponse? getVerificationOtp(VerificationOtpRequest verificationOtpRequest) {
     if(verificationOtpRequest.Otp == "7777") {
