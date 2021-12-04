@@ -1,10 +1,10 @@
+import 'package:deepika_assignment/Model/card_category_object.dart';
 import 'package:deepika_assignment/Utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
 import 'package:deepika_assignment/GetX/card_controller.dart';
-import 'package:deepika_assignment/Model/card_category_object.dart';
 import 'package:deepika_assignment/Model/card_object.dart';
 import 'package:deepika_assignment/Screens/select_image.dart';
 import 'package:deepika_assignment/Utils/ListOfObjectsUtils.dart';

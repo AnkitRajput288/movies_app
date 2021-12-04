@@ -40,7 +40,6 @@ class _DashboardState extends State<Dashboard>
   );
 
   late Widget homePage;
-  late Widget categoryA;
   late Widget categoryB;
   late Widget categoryC;
 
@@ -57,7 +56,6 @@ class _DashboardState extends State<Dashboard>
 
   void _initBottomTabs() {
     homePage = ListingUI();
-    categoryA = ListingUI(categoryObject: ListOfObjectsUtils.cardCategoryA);
     categoryB = ListingUI(categoryObject: ListOfObjectsUtils.cardCategoryB);
     categoryC = ListingUI(categoryObject: ListOfObjectsUtils.cardCategoryC);
   }
@@ -130,18 +128,13 @@ class _DashboardState extends State<Dashboard>
               }, EnumDashboardActiveScreenType.ALL),
             ),
             Expanded(
-              child: getNavigationButton('A', () {
-                _changeScreenTo(EnumDashboardActiveScreenType.A);
-              }, EnumDashboardActiveScreenType.A),
-            ),
-            Expanded(
-              child: getNavigationButton('B', () {
+              child: getNavigationButton('My Movies', () {
                 _changeScreenTo(
                     EnumDashboardActiveScreenType.B);
               }, EnumDashboardActiveScreenType.B),
             ),
             Expanded(
-              child: getNavigationButton('C', () {
+              child: getNavigationButton('My Watched', () {
                 _changeScreenTo(EnumDashboardActiveScreenType.C);
               }, EnumDashboardActiveScreenType.C),
             ),
@@ -180,7 +173,7 @@ class _DashboardState extends State<Dashboard>
       onPageChanged: (index) {
         pageChanged(index);
       },
-      children: <Widget>[homePage, categoryA, categoryB, categoryC],
+      children: <Widget>[homePage, categoryB, categoryC],
     );
   }
 
@@ -199,17 +192,14 @@ class _DashboardState extends State<Dashboard>
       case EnumDashboardActiveScreenType.ALL:
         selectedTab(0);
         break;
-      case EnumDashboardActiveScreenType.A:
-        selectedTab(1);
-        break;
       case EnumDashboardActiveScreenType.B:
         AccountProvider.checkLoginAndMoveRed(context, () {
-          selectedTab(2);
+          selectedTab(1);
         });
         break;
       case EnumDashboardActiveScreenType.C:
         AccountProvider.checkLoginAndMoveRed(context, () {
-          selectedTab(3);
+          selectedTab(2);
         });
         break;
     }

@@ -92,56 +92,63 @@ class _ListingUIState extends State<ListingUI>{
 
 
   Widget _buildCardView(CardObject cardObject){
-    return Container(
-      child: Card(
-        elevation: 4.0,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Container(
-                child: Image.asset(cardObject.images ?? "", fit: BoxFit.contain,),
+    return InkWell(
+      onTap: (){},
+      child: Container(
+        child: Card(
+          elevation: 4.0,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Image.asset(cardObject.images ?? "", fit: BoxFit.cover,),
+                flex: 1,
               ),
-              flex: 1,
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomWidget.getTextWidget(context, '${cardObject.name}', fontWeight: FontWeight.bold
-                        ),
-                          flex: 2,),
-                        Expanded(child: _showCategoryCircularWidget(cardObject))
-                      ],
-                    ),
-                    CustomWidget.getDefaultHeightSizedBox(),
-                    CustomWidget.getTextWidget(context, '${cardObject.description}')
-                  ],
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomWidget.getTextWidget(context, '${cardObject.name}', fontWeight: FontWeight.bold
+                          ),
+                            flex: 2,),
+                          Expanded(
+                            flex: 0,
+                              child: _showCategoryCircularWidget(cardObject))
+                        ],
+                      ),
+                      CustomWidget.getDefaultHeightSizedBox(),
+                      CustomWidget.getTextWidget(context, '${cardObject.description}')
+                    ],
+                  ),
                 ),
+                flex: 2,
               ),
-              flex: 2,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _showCategoryCircularWidget(CardObject cardObject){
-    return Container(
-      alignment: Alignment.center,
-      width: 40.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.grey,
+    return InkWell(
+      onTap: (){},
+      child: Container(
+        alignment: Alignment.center,
+        width: 35.0,
+        height: 35.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.grey,
+        ),
+        child: Icon(Icons.remove_red_eye,size: 20.0,),
+        //CustomWidget.getTextWidget(context, '${cardObject.cardCategoryObject?.value}'),
       ),
-      child: CustomWidget.getTextWidget(context, '${cardObject.cardCategoryObject?.value}'),
     );
   }
 
