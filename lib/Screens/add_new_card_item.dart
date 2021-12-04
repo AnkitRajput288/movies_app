@@ -1,40 +1,49 @@
-import 'package:deepika_assignment/Model/card_category_object.dart';
+import 'dart:math';
+
+import 'package:deepika_assignment/Model/Movies.dart';
+import 'package:deepika_assignment/Network/Database/moor_database.dart';
 import 'package:deepika_assignment/Utils/size_utils.dart';
+import 'package:deepika_assignment/Utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
-import 'package:deepika_assignment/GetX/card_controller.dart';
-import 'package:deepika_assignment/Model/card_object.dart';
 import 'package:deepika_assignment/Screens/select_image.dart';
-import 'package:deepika_assignment/Utils/ListOfObjectsUtils.dart';
+import 'package:deepika_assignment/Utils/list_of_objects_utils.dart';
 import 'package:deepika_assignment/Utils/app_utils.dart';
+
+import '../main.dart';
 
 
 class AddItemScreen extends StatefulWidget {
-  const AddItemScreen({Key? key}) : super(key: key);
+  final Movie? movie;
+
+  const AddItemScreen({this.movie, Key? key}) : super(key: key);
 
   @override
-  _AddItemScreenState createState() => _AddItemScreenState();
+  _AddItemScreenState createState() => _AddItemScreenState(movie);
 }
 
 class _AddItemScreenState extends State<AddItemScreen> {
 
-  final _controller = Get.put(CardController());
+  Movie? movie;
+
+  _AddItemScreenState(this.movie);
+
   String? assetImage;
+  //String? image;
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _descController = TextEditingController();
   var _defaultPadding = SizeUtils.instance.appDefaultSpacing;
 
-  List<DropdownMenuItem<CardCategoryObject>>? _dropdownMenuItems;
-  CardCategoryObject? _selectedCategoryObject;
-
   @override
   void initState() {
     super.initState();
-    _dropdownMenuItems = buildDropDownMenuItems(ListOfObjectsUtils.instance.getCardCategoriesList());
-    _selectedCategoryObject = _dropdownMenuItems![0].value;
+
+    _nameController = TextEditingController(text: movie?.name);
+    _descController = TextEditingController(text: movie?.detail);
+    assetImage = movie?.image;
   }
 
   @override
@@ -73,7 +82,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
           CustomWidget.getDefaultHeightSizedBox(),
           _buildImageWidget(),
           CustomWidget.getDefaultHeightSizedBox(),
-          CustomWidget.getTextField(context, _nameController, "Add name here", onChange: (value){
+          CustomWidget.getTextField(context, _nameController, "Add movie name here", onChange: (value){
             _nameController.text = value;
           }),
           CustomWidget.getDefaultHeightSizedBox(),
@@ -81,7 +90,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
             _descController.text = value;
           }),
           CustomWidget.getDefaultHeightSizedBox(),
-          _selectCategoryDropDownWidget(),
+        //  _selectCategoryDropDownWidget(),
           CustomWidget.getDefaultHeightSizedBox(height: 48.0),
           _buildSaveButtonWidget()
         ],
@@ -120,55 +129,44 @@ class _AddItemScreenState extends State<AddItemScreen> {
   }
 
 
-
-  List<DropdownMenuItem<CardCategoryObject>> buildDropDownMenuItems(List listItems) {
-    List<DropdownMenuItem<CardCategoryObject>> items = [];
-    for (CardCategoryObject cardCategoryObjectItem in listItems) {
-      items.add(
-        DropdownMenuItem(
-          child: Text(cardCategoryObjectItem.value ?? ''),
-          value: cardCategoryObjectItem,
-        ),
-      );
-    }
-    return items;
-  }
-
-
-  Widget _selectCategoryDropDownWidget(){
-    return Row(
-      children: [
-        CustomWidget.getTextWidget(context, 'Select Card Category'),
-        CustomWidget.getDefaultWidthSizedBox(),
-        DropdownButton(
-            value: _selectedCategoryObject,
-            items: _dropdownMenuItems,
-            onChanged: (value) {
-              _selectedCategoryObject = value as CardCategoryObject?;
-              AppUtils.refreshCurrentState(this);
-            }),
-      ],
-    );
-  }
-
   Widget _buildSaveButtonWidget(){
     return CustomWidget.getRoundedButtonWidget(context, 'Save', onTap: (){
       _onSaveClickEvent();
     });
   }
 
-  void _onSaveClickEvent(){
+  void _onSaveClickEvent() {
+    if(assetImage == null) {
+      ToastUtils.show('Please select Image');
+      return;
+    }else if (_nameController.text == ''){
+      ToastUtils.show('Please Enter Name');
+      return;
+    }else if (_descController.text == ''){
+      ToastUtils.show('Please Enter Director, Description');
+      return;
+    }
+
     var name = _nameController.text;
     var desc = _descController.text;
-    var selectedCategory = _selectedCategoryObject;
-    var selectedImage = assetImage;
-    var addNewCardItem = CardObject(name: name, description: desc, images: selectedImage, cardCategoryObject: selectedCategory);
 
-    if(addNewCardItem.isValid(context)) {
-      _controller.addNewCardObject(addNewCardItem);
+    if(movie?.id != null) {
+      movie = movie!.copyWith(name: name, detail: desc, image: assetImage!);
+      database.updateMovie(movie!);
+    } else {
+      var addNewCardItem = Movie(
+        id: Random().nextInt(100000),
+        directorID: 1,
+        name: name,
+        detail: desc,
+        image: assetImage!,
+        isMovieWatched: false,
+      );
 
-      Navigator.pop(context);
+      database.insertMovie(addNewCardItem);
     }
+
+    Navigator.pop(context);
   }
 
 }

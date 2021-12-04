@@ -2,17 +2,20 @@ import 'package:deepika_assignment/Constants/constant.dart';
 import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
 import 'package:deepika_assignment/Provider/ProviderUtils.dart';
 import 'package:deepika_assignment/Provider/account_provider.dart';
+import 'package:deepika_assignment/Screens/all_movies_widget.dart';
+import 'package:deepika_assignment/Screens/my_movies_widget.dart';
+import 'package:deepika_assignment/Screens/watched_movies_widget.dart';
 import 'package:deepika_assignment/SheetUtils/sheet_popup_utils.dart';
+import 'package:deepika_assignment/Utils/color_utils.dart';
+import 'package:deepika_assignment/Utils/list_of_objects_utils.dart';
 import 'package:deepika_assignment/Utils/toast_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:deepika_assignment/Utils/ListOfObjectsUtils.dart';
 import 'package:deepika_assignment/Utils/app_utils.dart';
 import 'package:deepika_assignment/Utils/enum_utils.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
-
-import 'add_new_card_item.dart';
-import 'listing_ui.dart';
+import '../main.dart';
+import 'common_movies_list.dart';
 
 
 class Dashboard extends StatefulHookWidget {
@@ -39,14 +42,30 @@ class _DashboardState extends State<Dashboard>
     keepPage: true,
   );
 
+
   late Widget homePage;
-  late Widget categoryB;
-  late Widget categoryC;
+  late Widget myMovies;
+  late Widget myWatched;
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
+    populateData();
   }
+
+  void populateData()async{
+    var allMovies = await database.getAllMovies();
+    if(allMovies.isEmpty){
+      _loadDummyDataAndSaveToDatabase();
+    }
+  }
+
+  Future<void>_loadDummyDataAndSaveToDatabase()async{
+    var listOfMovies = ListOfObjectsUtils().getMovieData();
+    await database.batchInsert(listOfMovies);
+  }
+
 
   @override
   void didChangeDependencies() {
@@ -55,59 +74,42 @@ class _DashboardState extends State<Dashboard>
   }
 
   void _initBottomTabs() {
-    homePage = ListingUI();
-    categoryB = ListingUI(categoryObject: ListOfObjectsUtils.cardCategoryB);
-    categoryC = ListingUI(categoryObject: ListOfObjectsUtils.cardCategoryC);
+    homePage = AllMoviesWidget();
+    myMovies = MyMoviesWidget();
+    myWatched = WatchedMoviesWidget();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
     _verificationOtpProvider = useProvider(accountProvider);
     _isLogin = _verificationOtpProvider.isLogin;
+   var _userId = _verificationOtpProvider.getVerificationOtpResponse?.userLoginId ?? 0;
+
     return Container(
       child: Stack(
         children: <Widget>[
           Scaffold(
             resizeToAvoidBottomInset: true,
             appBar: AppBar(
-              title: const  Text('Movies App'),
+              title: _appLogoWithUserName(),
               actions: [
-                _isLogin ?
-                InkWell(
-                  onTap: (){
-                    ToastUtils.show("You have Logged Out");
-                    logout();
-                  },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(child: Text('Log Out')),
-                    )) :
-                InkWell(
-                    onTap: (){
-                      SheetPopupUtils.instance.showBottomSheetLoginFlow(context,);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(child: Text('Login')),
-                    ))
+                _logOutUI()
               ],
             ),
             body: SafeArea(child: buildPageView()),
+
             bottomNavigationBar: _buildBottomAppBar(),
+
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.black87,
-              child: Icon(Icons.add, color: Colors.white,),
-              // onPressed: ()=> Get.to(AddItemScreen())
+              child: const Icon(Icons.add, color: Colors.white,),
               onPressed: (){
                 AccountProvider.checkLoginAndMoveRed(context, () {
                   SheetPopupUtils.instance.showBottomSheetAddMovie(context);
                 });
-
-               /* Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
-                  return AddItemScreen();
-                }));*/
               },
-
             ),
           ),
         ],
@@ -129,8 +131,7 @@ class _DashboardState extends State<Dashboard>
             ),
             Expanded(
               child: getNavigationButton('My Movies', () {
-                _changeScreenTo(
-                    EnumDashboardActiveScreenType.B);
+                _changeScreenTo(EnumDashboardActiveScreenType.B);
               }, EnumDashboardActiveScreenType.B),
             ),
             Expanded(
@@ -173,7 +174,7 @@ class _DashboardState extends State<Dashboard>
       onPageChanged: (index) {
         pageChanged(index);
       },
-      children: <Widget>[homePage, categoryB, categoryC],
+      children: <Widget>[homePage, /*categoryB, categoryC*/],
     );
   }
 
@@ -232,7 +233,87 @@ class _DashboardState extends State<Dashboard>
     );
   }
 
+  Widget _logOutUI(){
+    double width = MediaQuery.of(context).size.width;
+    return _isLogin ? InkWell(
+        onTap: ()=> showDialog(
+          context: context,
+          builder: (_) => Dialog(
+            child: Container(
+              height: 150.0,
+              width: width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: ColorUtils.greyIconColor,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        CustomWidget.getTextWidget(context,'Are you sure?' , fontWeight: FontWeight.bold,textSize: 20.0,textColor: ColorUtils.blackColor),
+                        CustomWidget.getDefaultHeightSizedBox(),
+                        CustomWidget.getTextWidget(context,'do you want to log out!' ,textSize: 16.0,textColor: ColorUtils.blackColor),
+                      ],
+                    ),
+                    CustomWidget.getDefaultHeightSizedBox(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                            onTap: (){
+
+                    ToastUtils.show("You have Logged Out");
+                    logout();
+                  },
+                            child: CustomWidget.getTextWidget(context,'Confirm' , fontWeight: FontWeight.bold,textColor: ColorUtils.darkBlueTextColor)),
+                        CustomWidget.getDefaultWidthSizedBox(),
+                        InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: CustomWidget.getTextWidget(context,'Cancel' , fontWeight: FontWeight.bold,textColor: ColorUtils.blackColor)),
+
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Center(child: Text('Log Out')),
+        )) :
+    InkWell(
+        onTap: (){
+          SheetPopupUtils.instance.showBottomSheetLoginFlow(context,);
+        },
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Center(child: Text('Login')),
+        ));
+  }
+
+  Widget _appLogoWithUserName(){
+    var _name = _verificationOtpProvider.getVerificationOtpResponse?.userName ?? '';
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+       const Text('Movies App'),
+        const  SizedBox(width: 8.0,),
+          Text(_name, style: TextStyle(fontSize: 12.0),),
+      ],
+    );
+  }
+
   void logout() async {
     AccountProvider.logoutRead(context);
+    Navigator.pop(context);
   }
 }

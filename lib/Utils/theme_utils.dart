@@ -11,7 +11,7 @@ class ThemeUtils {
   AppThemeMeta? _themeModel;
 
   ///
-  /// Parent Theme Data Related Properties - START
+  /// Parent Theme Database Related Properties - START
   ///
   Brightness? brightness;
   Color? scaffoldBackgroundColor;
@@ -33,11 +33,11 @@ class ThemeUtils {
   Color? textCustomColorHeading1;
 
   ///
-  /// Parent Theme Data Related Properties - END
+  /// Parent Theme Database Related Properties - END
   ///
 
   ///
-  /// Child Color Theme Data Related Properties - START
+  /// Child Color Theme Database Related Properties - START
   ///
   Color primaryColor = ColorUtils.primaryColor;
   Color? shadowColor;
@@ -52,11 +52,11 @@ class ThemeUtils {
   Color? sliderInActiveColor;
 
   ///
-  /// Child Color Theme Data Related Properties - END
+  /// Child Color Theme Database Related Properties - END
   ///
 
   ///
-  /// Common Theme Data Related Properties - START
+  /// Common Theme Database Related Properties - START
   ///
   Color? dividerColor;
   Color? hintColor;
@@ -76,17 +76,17 @@ class ThemeUtils {
   FloatingActionButtonThemeData? floatingActionButtonThemeData;
 
   ///
-  /// Common Theme Data Related Properties - START
+  /// Common Theme Database Related Properties - START
   ///
 
   ///
-  /// Font Theme Data Related Properties - START
+  /// Font Theme Database Related Properties - START
   /// 
   double? fontSize;
   double? iconSize;
   TextStyle? _fontSet;
   ///
-  /// Font Theme Data Related Properties - END
+  /// Font Theme Database Related Properties - END
   ///
   
   void initialize(AppThemeMeta _themeModel) {

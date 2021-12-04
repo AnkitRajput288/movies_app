@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:deepika_assignment/Network/Database/moor_database.dart';
 import 'package:deepika_assignment/Screens/Account/login_screen.dart';
 import 'package:deepika_assignment/Screens/Account/otp_screen.dart';
 import 'package:deepika_assignment/Screens/add_new_card_item.dart';
@@ -63,7 +64,7 @@ class SheetPopupUtils {
     );
   }
 
-  void showBottomSheetAddMovie(BuildContext context) {
+  void showBottomSheetAddMovie(BuildContext context, {Movie? movie}) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -79,7 +80,7 @@ class SheetPopupUtils {
           builder: (_context, scrollController) {
             return _getBottomSheetBackdropFilterWidget(
               context,
-              child: AddItemScreen(),
+              child: AddItemScreen(movie: movie,),
             );
           },
         );

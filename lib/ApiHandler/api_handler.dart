@@ -3,7 +3,6 @@ import 'package:deepika_assignment/Model/Request/Account/VerificationOtpRequest.
 import 'package:deepika_assignment/Model/Response/VerificationOtpResponse.dart';
 import 'package:deepika_assignment/Model/Response/VerificationOtpResultResponse.dart';
 
-import '../Model/card_object.dart';
 
 class ApiHandler{
   static const API_SUCCESS_CODE = 200;
@@ -16,18 +15,6 @@ class ApiHandler{
 
   static final instance = ApiHandler();
 
-  final int _countOfElementToReturnViaApi = 5;
-
-  List<CardObject> getCardData(){
-    var _listOfAllCardData = <CardObject>[];
-
-    for(int index = 0 ; index < _countOfElementToReturnViaApi; index++) {
-      var getRandomCardObjectItem = CardObject.getRandomObject();
-      _listOfAllCardData.add(getRandomCardObjectItem);
-    }
-
-    return _listOfAllCardData;
-  }
 
   static VerificationOtpResponse? getVerificationOtp(VerificationOtpRequest verificationOtpRequest) {
     if(verificationOtpRequest.Otp == "7777") {

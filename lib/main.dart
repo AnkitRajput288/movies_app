@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'Network/Database/moor_database.dart';
 import 'Screens/dashboard.dart';
 
+late AppDatabase database;
+
 void main() {
+  database = AppDatabase();
   runApp(ProviderScope(child: MyApp()));
 }
 

@@ -87,7 +87,7 @@ class SharedPrefUtil {
   ///
 
   ///
-  /// Login Data - Start
+  /// Login Database - Start
   ///
   static Future<bool> _saveLoginDataJson(String loginData) async {
     final prefs = await SharedPreferences.getInstance();
@@ -174,7 +174,7 @@ class SharedPrefUtil {
   }
 
   ///
-  ///Login Data - End
+  ///Login Database - End
   ///
 
 }

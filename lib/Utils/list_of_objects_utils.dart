@@ -1,19 +1,18 @@
 
+import 'dart:math';
+
+import 'package:deepika_assignment/Model/card_category_object.dart';
+import 'package:deepika_assignment/Network/Database/moor_database.dart';
 import 'package:deepika_assignment/Utils/custom_extension.dart';
 
-import '../Model/card_category_object.dart';
 
 class ListOfObjectsUtils{
 
   static final instance = ListOfObjectsUtils();
 
-  static int _categoryId_A = 1;
-  static int _categoryId_B = 2;
-  static int _categoryId_C = 3;
+  static int _directorId_A = 1;
 
-  static var cardCategoryA = CardCategoryObject(_categoryId_A, 'A');
-  static var cardCategoryB = CardCategoryObject(_categoryId_B, 'B');
-  static var cardCategoryC = CardCategoryObject(_categoryId_C, 'C');
+  static var card_directorIdA = CardCategoryObject(_directorId_A, 'A');
 
   final List<String> _listOfNames = [
     'CAPTAIN MARVEL',
@@ -77,20 +76,37 @@ class ListOfObjectsUtils{
     'assets/image_13.jpg',
     'assets/image_14.jpg',
     'assets/image_15.jpg'
-    ];
-
-  final List<CardCategoryObject> _listOfCategories = [
-    cardCategoryA,
-    cardCategoryB,
-    cardCategoryC,
   ];
 
+  final List<int> _listOfId = [101,102,103,104,105,106,107,108,109,110];
+
+  final List<int> _listOfDirectorId = [0,1,2,3,4,5,6,7,8,9];
 
   String getRandomNames() => _listOfNames.randomItem();
   String getRandomDescription() => _listOfDescription.randomItem();
   String getRandomImage() => _listOfImages.randomItem();
-  CardCategoryObject getRandomCategory() => _listOfCategories.randomItem();
+  int getRandomId()=> _listOfId.randomItem();
+  int getRandomDirectorId()=> _listOfDirectorId.randomItem();
 
   List<String> getImageList() => _listOfImages;
-  List<CardCategoryObject> getCardCategoriesList() => _listOfCategories;
+
+  static Movie getRandomObject() => Movie(
+      id: Random().nextInt(100000),
+      directorID: ListOfObjectsUtils.instance.getRandomDirectorId(),
+      name: ListOfObjectsUtils.instance.getRandomNames(),
+      detail: ListOfObjectsUtils.instance.getRandomDescription(),
+      image: ListOfObjectsUtils.instance.getRandomImage(),
+      isMovieWatched: false,
+  );
+
+  List<Movie> getMovieData(){
+    var _listOfAllMovieData = <Movie>[];
+
+    for(int index = 0 ; index < 10; index++) {
+      var getRandomCardObjectItem = getRandomObject();
+      _listOfAllMovieData.add(getRandomCardObjectItem);
+    }
+
+    return _listOfAllMovieData;
+  }
 }

@@ -1,8 +1,7 @@
 import 'package:deepika_assignment/Constants/constant.dart';
-import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:deepika_assignment/Utils/ListOfObjectsUtils.dart';
+import 'package:deepika_assignment/Utils/list_of_objects_utils.dart';
 
 class SelectImage extends StatefulWidget {
   const SelectImage({Key? key}) : super(key: key);
