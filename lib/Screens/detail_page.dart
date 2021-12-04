@@ -86,9 +86,7 @@ class _DetailPageState extends State<DetailPage> {
             icon: Icons.remove_red_eye,
             color: movieDetail!.isMovieWatched ? Colors.green : Colors.grey,
             onTap: () {
-              setState(() {
-               // database.movieWatched(movieData);
-              });
+              _eventWatch();
             },
           ),
           Visibility(
@@ -98,7 +96,7 @@ class _DetailPageState extends State<DetailPage> {
               color: ColorUtils.greyIconColor,
               onTap: () {
                 AccountProvider.checkLoginAndMoveRed(context, () {
-                 // SheetPopupUtils.instance.showBottomSheetAddMovie(context, movie: movieData,);
+                  SheetPopupUtils.instance.showBottomSheetAddMovie(context, movie: movieDetail!,);
                 });
               },
             ),
@@ -110,7 +108,7 @@ class _DetailPageState extends State<DetailPage> {
               color: ColorUtils.redColor,
               onTap: () {
                 setState(() {
-                 // database.deleteMovie(movieData);
+                  database.deleteMovie(movieDetail!);
                 });
                 Navigator.pop(context);
               },
@@ -138,6 +136,23 @@ class _DetailPageState extends State<DetailPage> {
         ),
       ),
     );
+  }
+
+  void _eventWatch() async {
+
+    Future<bool> _watchQuery;
+    if(movieDetail!.isMovieWatched) {
+      _watchQuery = database.movieNotWatched(movieDetail!);
+    } else {
+      _watchQuery = database.movieWatched(movieDetail!);
+    }
+      var isSuccess = await _watchQuery;
+
+    var _toggleWatchValue = isSuccess ? !movieDetail!.isMovieWatched : movieDetail!.isMovieWatched;
+
+    movieDetail = movieDetail!.copyWith(isMovieWatched: _toggleWatchValue);
+
+      setState(() {});
   }
 
 }

@@ -30,8 +30,9 @@ class AppDatabase extends _$AppDatabase {
     batch.insertAll(movies, listOfMovies);
   });
   // Updates a Task with a matching primary key
-  Future updateMovie(Movie movie) => update(movies).replace(movie);
-  Future movieWatched(Movie movie) => update(movies).replace(movie.copyWith(isMovieWatched: true));
+  Future<bool> updateMovie(Movie movie) => update(movies).replace(movie);
+  Future<bool> movieWatched(Movie movie) => update(movies).replace(movie.copyWith(isMovieWatched: true));
+  Future<bool> movieNotWatched(Movie movie) => update(movies).replace(movie.copyWith(isMovieWatched: false));
 
 
   Future deleteMovie(Movie movie) => delete(movies).delete(movie);

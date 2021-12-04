@@ -1,10 +1,12 @@
+import 'dart:async';
 import 'package:deepika_assignment/Network/Database/moor_database.dart';
 import 'package:deepika_assignment/Provider/account_provider.dart';
 import 'package:deepika_assignment/SheetUtils/sheet_popup_utils.dart';
+import 'package:deepika_assignment/Utils/CommonEmptyScreenUI.dart';
 import 'package:deepika_assignment/Utils/color_utils.dart';
+import 'package:deepika_assignment/Utils/list_of_objects_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
-import 'package:hooks_riverpod/all.dart';
 import '../main.dart';
 import 'detail_page.dart';
 
@@ -24,6 +26,11 @@ class _CommonMoviesListState extends State<CommonMoviesList> {
 
   _CommonMoviesListState(this.movies);
 
+  Future<void>_loadDummyDataAndSaveToDatabase()async{
+    var listOfMovies = ListOfObjectsUtils().getMovieData();
+    await database.batchInsert(listOfMovies);
+  }
+
   @override
   void didUpdateWidget(covariant CommonMoviesList oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -33,24 +40,33 @@ class _CommonMoviesListState extends State<CommonMoviesList> {
   @override
   Widget build(BuildContext context,) {
     _loggedInUserId = AccountProvider.getLoggedInUserId(context);
-    return _buildMainWidget();
+   return Expanded(
+        child: NotificationListener(
+          child: _buildMainWidget(),
+          onNotification: (ScrollNotification scrollInfo) {
+            double currentPixel = scrollInfo.metrics.pixels;
+            if (currentPixel == scrollInfo.metrics.maxScrollExtent) {
+              _loadDummyDataAndSaveToDatabase();
+            }
+            return true;
+          },
+        )
+    );
   }
 
   Widget _buildMainWidget() {
-
-    if((movies?.length ?? 0) > 0) {
-      return ListView.builder(
+        if((movies?.length ?? 0) > 0) {
+         return ListView.builder(
         itemBuilder: (_, index) {
           return _commonCardUI(movies![index]);
         },
         itemCount: movies?.length ?? 0,
       );
     } else {
-
-      // EMPTY State
-      return Container();
+      return CommonEmptyScreenUI();
     }
   }
+
 
   Widget _commonCardUI(Movie movieData){
     return InkWell(
@@ -99,9 +115,7 @@ class _CommonMoviesListState extends State<CommonMoviesList> {
             icon: Icons.remove_red_eye,
             color: movieData.isMovieWatched ? Colors.green : Colors.grey,
             onTap: () {
-              setState(() {
-                database.movieWatched(movieData);
-              });
+              _eventWatch(movieData);
             },
           ),
           CustomWidget.getDefaultHeightSizedBox(),
@@ -149,6 +163,23 @@ class _CommonMoviesListState extends State<CommonMoviesList> {
         child: Icon(icon,size: 20.0,),
       ),
     );
+  }
+
+  void _eventWatch(Movie movieDetail) async {
+
+    Future<bool> _watchQuery;
+    if(movieDetail.isMovieWatched) {
+      _watchQuery = database.movieNotWatched(movieDetail);
+    } else {
+      _watchQuery = database.movieWatched(movieDetail);
+    }
+    var isSuccess = await _watchQuery;
+
+    var _toggleWatchValue = isSuccess ? !movieDetail.isMovieWatched : movieDetail.isMovieWatched;
+
+    movieDetail = movieDetail.copyWith(isMovieWatched: _toggleWatchValue);
+
+    setState(() {});
   }
 
 }
