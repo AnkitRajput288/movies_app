@@ -1,7 +1,7 @@
 
 class PrintUtils {
 
-  static bool _isDebug = true;
+  static const bool _isDebug = true;
 
   static void printLog(String message) {
     _print(message, _isDebug);

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:ankit_assignment/Utils/print_utils.dart';
+
 import '../Model/Response/verification_otp_response.dart';
 import 'package:flutter_udid/flutter_udid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -73,7 +75,9 @@ class SharedPrefUtil {
 
       spData ??= await FlutterUdid.consistentUdid;
       return spData;
-    } catch (e) {}
+    } catch (e) {
+      PrintUtils.printLog(e.toString());
+    }
     return await FlutterUdid.consistentUdid;
   }
 

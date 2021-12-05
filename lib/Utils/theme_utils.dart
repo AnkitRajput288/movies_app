@@ -107,7 +107,7 @@ class ThemeUtils {
   }
   
   void _setParentThemeData() {
-    switch (_themeModel?.enumParentBackground) {
+    switch (_themeModel!.enumParentBackground) {
       case EnumAppThemeParentBackground.light:
         var _textBlackColor = ColorUtils.textHeadingBlackColor;
         var _textLightBlackColor = ColorUtils.textSubHeadingCharcoalBlackColor;
@@ -190,7 +190,7 @@ class ThemeUtils {
   }
 
   void _setChildColorThemeData() {
-    switch (_themeModel?.enumChildColor) {
+    switch (_themeModel!.enumChildColor) {
       case EnumAppThemeChildColor.skyBlue:
         _setChildColorThemeDataValues(ColorUtils.themeChildColorSkyBlue);
         break;
