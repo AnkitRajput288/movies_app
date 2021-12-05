@@ -1,11 +1,11 @@
 import 'dart:math';
-import 'package:deepika_assignment/Network/Database/moor_database.dart';
-import 'package:deepika_assignment/Utils/size_utils.dart';
-import 'package:deepika_assignment/Utils/toast_utils.dart';
+import '../Network/Database/moor_database.dart';
+import '../Utils/size_utils.dart';
+import '../Utils/toast_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
-import 'package:deepika_assignment/Screens/select_image.dart';
-import 'package:deepika_assignment/Utils/app_utils.dart';
+import '../CustomWidget/custom_widgets.dart';
+import 'select_image.dart';
+import '../Utils/app_utils.dart';
 
 import '../main.dart';
 
@@ -30,7 +30,7 @@ class _AddUpdateMovieWidgetState extends State<AddUpdateMovieWidget> {
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _descController = TextEditingController();
-  var _defaultPadding = SizeUtils.instance.appDefaultSpacing;
+  final _defaultPadding = SizeUtils.instance.appDefaultSpacing;
 
   @override
   void initState() {
@@ -70,8 +70,8 @@ class _AddUpdateMovieWidgetState extends State<AddUpdateMovieWidget> {
                 onTap: (){
                   Navigator.pop(context);
                 },
-                  child: Icon(Icons.arrow_back_ios,)),
-              Text("Add Movie",style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0),),
+                  child: const Icon(Icons.arrow_back_ios,)),
+              const Text("Add Movie",style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0),),
             ],
           ),
           CustomWidget.getDefaultHeightSizedBox(),
@@ -97,7 +97,7 @@ class _AddUpdateMovieWidgetState extends State<AddUpdateMovieWidget> {
 
   Widget _buildImageWidget(){
     return GestureDetector(
-      child: assetImage!= null ? Container(
+      child: assetImage!= null ? SizedBox(
           height: 250.0,
           width: MediaQuery.of(context).size.width,
           child: Image.asset(assetImage!, fit: BoxFit.fill,)
@@ -114,7 +114,7 @@ class _AddUpdateMovieWidgetState extends State<AddUpdateMovieWidget> {
       onTap: () async {
         // Get result from Select Image screen...
         String? result = await
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SelectImage()))as String?;
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SelectImage()))as String?;
         if(result != null){
           assetImage = result;
           AppUtils.refreshCurrentState(this);

@@ -1,5 +1,5 @@
 import 'package:event_bus/event_bus.dart';
-import 'EventModels/EventLogin.dart';
+import 'EventModels/event_login.dart';
 
 EventBus eventBus = EventBus();
 

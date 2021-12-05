@@ -1,4 +1,4 @@
-import 'package:deepika_assignment/Model/Response/VerificationOtpResultResponse.dart';
+import '../../Model/Response/verification_otp_result_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 class VerificationOtpResultResponseConverter implements JsonConverter<VerificationOtpResultResponse, Map<String, dynamic>> {

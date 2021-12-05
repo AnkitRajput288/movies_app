@@ -1,5 +1,5 @@
-import 'package:deepika_assignment/Constants/constant.dart';
-import 'package:deepika_assignment/Utils/color_utils.dart';
+import '../Constants/constant.dart';
+import '../Utils/color_utils.dart';
 import 'package:flutter/material.dart';
 
 class CustomWidget{
@@ -23,6 +23,34 @@ class CustomWidget{
       BuildContext context, TextEditingController controller, String hintText,
       {onChange}) {
     return  TextFormField(
+      style: const TextStyle(fontSize: 14.0),
+      controller: controller,
+      decoration:  InputDecoration(
+        errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.redAccent),
+        ),
+        filled: true,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24.0),
+          borderSide: const BorderSide(color: Colors.transparent),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24.0),
+          borderSide: const BorderSide(color: Colors.transparent),
+        ),
+
+        hintText: hintText,
+
+      ),
+    );
+  }
+
+  static Widget getTextFieldForMobile(
+      BuildContext context, TextEditingController controller, String hintText,
+      {onChange}) {
+    return  TextFormField(
+      keyboardType: TextInputType.number,
+      maxLength: 10,
       style: const TextStyle(fontSize: 14.0),
       controller: controller,
       decoration:  InputDecoration(

@@ -7,7 +7,7 @@ late AppDatabase database;
 
 void main() {
   database = AppDatabase();
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         brightness:Brightness.dark
       ),
       themeMode: ThemeMode.dark,
-      home:  Dashboard(),
+      home:  const Dashboard(),
     );
   }
 }

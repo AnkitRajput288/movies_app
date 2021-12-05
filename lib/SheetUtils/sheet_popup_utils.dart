@@ -1,12 +1,12 @@
 import 'dart:ui';
 
-import 'package:deepika_assignment/Network/Database/moor_database.dart';
-import 'package:deepika_assignment/Screens/Account/login_screen.dart';
-import 'package:deepika_assignment/Screens/Account/otp_screen.dart';
-import 'package:deepika_assignment/Screens/add_update_movie_widget.dart';
-import 'package:deepika_assignment/Screens/select_image.dart';
-import 'package:deepika_assignment/Utils/color_utils.dart';
-import 'package:deepika_assignment/Utils/exception_utils.dart';
+import '../Network/Database/moor_database.dart';
+import '../Screens/Account/login_screen.dart';
+import '../Screens/Account/otp_screen.dart';
+import '../Screens/add_update_movie_widget.dart';
+import '../Screens/select_image.dart';
+import '../Utils/color_utils.dart';
+import '../Utils/exception_utils.dart';
 import 'package:flutter/material.dart';
 
 class SheetPopupUtils {
@@ -32,7 +32,7 @@ class SheetPopupUtils {
           builder: (_context, scrollController) {
             return _getBottomSheetBackdropFilterWidget(
               context,
-              child: LoginScreen(),
+              child: const LoginScreen(),
             );
           },
         );
@@ -103,7 +103,7 @@ class SheetPopupUtils {
           builder: (_context, scrollController) {
             return _getBottomSheetBackdropFilterWidget(
               context,
-              child: SelectImage(),
+              child: const SelectImage(),
             );
           },
         );
@@ -118,11 +118,9 @@ class SheetPopupUtils {
   Widget _getBottomSheetBackdropFilterWidget(BuildContext context,
       {required Widget child}) {
     return SafeArea(
-      child: Container(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-          child: _getBottomSheetRoundedCornerWidget(context, child),
-        ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+        child: _getBottomSheetRoundedCornerWidget(context, child),
       ),
     );
   }
@@ -134,7 +132,7 @@ class SheetPopupUtils {
   Widget _getBottomSheetRoundedCornerWidget(
       BuildContext context, Widget child) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       child: Container(
         color: Theme.of(context).bottomSheetTheme.backgroundColor,
@@ -159,7 +157,7 @@ class SheetPopupUtils {
   }
 
   ShapeBorder getBottomSheetShape() {
-    return RoundedRectangleBorder(
+    return const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
       //side: BorderSide(color: ColorUtils.primaryColor)
@@ -169,7 +167,7 @@ class SheetPopupUtils {
   Widget _getBottomSheetMainWidgetInsideContainer(BuildContext context,
       {required Widget child}) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -188,7 +186,7 @@ class SheetPopupUtils {
 
   Widget _getBottomSheetRoundedCornerWidget1(Widget child) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(60), topRight: Radius.circular(60)),
       child: Container(
         color: ColorUtils.whiteColor,

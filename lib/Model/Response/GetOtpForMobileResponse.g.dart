@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'GetOtpForMobileResponse.dart';
+part of 'get_otp_for_mobile_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -1,4 +1,4 @@
 
 class AppEnums{}
 
-enum EnumDashboardActiveScreenType { ALL, A, B, C }
+enum EnumDashboardActiveScreenType { all, myMovies, myWatched,}

@@ -1,5 +1,7 @@
-import 'package:deepika_assignment/Network/Database/moor_database.dart';
-import 'package:deepika_assignment/Screens/common_movies_list.dart';
+import '../Utils/enum_utils.dart';
+
+import '../Network/Database/moor_database.dart';
+import 'common_movies_list.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -22,7 +24,7 @@ class _AllMoviesWidgetState extends State<AllMoviesWidget>{
     return StreamBuilder(
       stream: database.watchAllMovies(),
       builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
-        return CommonMoviesList(movies: snapshot.data, module: 'AllMovies',);
+        return CommonMoviesList(movies: snapshot.data, module: EnumDashboardActiveScreenType.all,);
       },
     );
   }

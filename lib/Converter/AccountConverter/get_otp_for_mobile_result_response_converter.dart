@@ -1,5 +1,5 @@
 
-import 'package:deepika_assignment/Model/Response/GetOtpForMobileResultResponse.dart';
+import '../../Model/Response/get_otp_for_mobile_result_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 class GetOtpForMobileResultResponseConverter implements JsonConverter<GetOtpForMobileResultResponse, Map<String, dynamic>> {

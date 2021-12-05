@@ -1,7 +1,7 @@
-import 'package:deepika_assignment/ApiHandler/api_handler.dart';
-import 'package:deepika_assignment/Converter/AccountConverter/VerificationOtpResultResponseConverter.dart';
+import '../../ApiHandler/api_handler.dart';
+import '../../Converter/AccountConverter/verification_otp_result_response_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'VerificationOtpResultResponse.dart';
+import 'verification_otp_result_response.dart';
 part 'VerificationOtpResponse.g.dart';
 part 'VerificationOtpResponse.freezed.dart';
 

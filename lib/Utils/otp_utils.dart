@@ -63,10 +63,10 @@ class OTPTextField extends StatefulWidget {
 }
 
 class _OTPTextFieldState extends State<OTPTextField> {
-  var _focusNodes = <FocusNode>[];
-  var _textControllers = <TextEditingController>[];
+  final _focusNodes = <FocusNode>[];
+  final _textControllers = <TextEditingController>[];
 
-  var _textFields = <Widget>[];
+  final _textFields = <Widget>[];
   late List<String> _pin;
 
 //  late Color changeColor;
@@ -106,8 +106,9 @@ class _OTPTextFieldState extends State<OTPTextField> {
 
   @override
   void dispose() {
-    _textControllers
-        .forEach((TextEditingController controller) => controller.dispose());
+    for (var controller in _textControllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
@@ -118,7 +119,7 @@ class _OTPTextFieldState extends State<OTPTextField> {
       _textFields.add(buildTextField(context, index));
     }
 
-    return Container(
+    return SizedBox(
       width: widget.width,
       child: Row(
         mainAxisAlignment: widget.textFieldAlignment,
@@ -151,13 +152,13 @@ class _OTPTextFieldState extends State<OTPTextField> {
         decoration: InputDecoration(
             fillColor: ColorUtils.whiteColor,
             filled: true,
-            enabledBorder: OutlineInputBorder(
+            enabledBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12.0)),
               borderSide: BorderSide(color: Colors.grey)
             ),
             counterText: "",
             border: widget.fieldStyle == FieldStyle.box
-                ? OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                ? const OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(12.0)),
                 borderSide: BorderSide(color: Colors.grey)
             )
                 : null
@@ -181,13 +182,14 @@ class _OTPTextFieldState extends State<OTPTextField> {
           // Remove focus
           if (str.isNotEmpty) _focusNodes[position].unfocus();
           // Set focus to the next field if available
-          if (position + 1 != widget.length && str.isNotEmpty)
+          if (position + 1 != widget.length && str.isNotEmpty) {
             FocusScope.of(context).requestFocus(_focusNodes[position + 1]);
+          }
 
           String currentPin = "";
-          _pin.forEach((String value) {
+          for (var value in _pin) {
             currentPin += value;
-          });
+          }
 
           // if there are no null values that means otp is completed
           // Call the `onCompleted` callback function provided

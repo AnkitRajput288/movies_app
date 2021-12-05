@@ -52,34 +52,34 @@ K _$enumDecode<K, V>(
 }
 
 const _$EnumAppThemeParentBackgroundEnumMap = {
-  EnumAppThemeParentBackground.LIGHT: 'LIGHT',
-  EnumAppThemeParentBackground.DIM: 'DIM',
-  EnumAppThemeParentBackground.DARK: 'DARK',
+  EnumAppThemeParentBackground.light: 'LIGHT',
+  EnumAppThemeParentBackground.din: 'DIM',
+  EnumAppThemeParentBackground.dark: 'DARK',
 };
 
 const _$EnumAppThemeChildColorEnumMap = {
-  EnumAppThemeChildColor.SKY_BLUE: 'SKY_BLUE',
-  EnumAppThemeChildColor.DARK_YELLOW: 'DARK_YELLOW',
-  EnumAppThemeChildColor.FLOWER_RED: 'FLOWER_RED',
-  EnumAppThemeChildColor.OCTOPUS_VIOLET: 'OCTOPUS_VIOLET',
-  EnumAppThemeChildColor.FIRE_ORANGE: 'FIRE_ORANGE',
-  EnumAppThemeChildColor.GUAVA_GREEN: 'GUAVA_GREEN',
+  EnumAppThemeChildColor.skyBlue: 'SKY_BLUE',
+  EnumAppThemeChildColor.darkYellow: 'DARK_YELLOW',
+  EnumAppThemeChildColor.flowerRed: 'FLOWER_RED',
+  EnumAppThemeChildColor.octopusViolet: 'OCTOPUS_VIOLET',
+  EnumAppThemeChildColor.fireOrange: 'FIRE_ORANGE',
+  EnumAppThemeChildColor.guavaGreen: 'GUAVA_GREEN',
 };
 
 const _$EnumAppThemeFontsEnumMap = {
-  EnumAppThemeFonts.ABEL: 'ABEL',
-  EnumAppThemeFonts.ACTOR: 'ACTOR',
-  EnumAppThemeFonts.BILBO: 'BILBO',
-  EnumAppThemeFonts.HIND: 'HIND',
-  EnumAppThemeFonts.LATO: 'LATO',
-  EnumAppThemeFonts.ROBOTO: 'ROBOTO',
-  EnumAppThemeFonts.ZEYADA: 'ZEYADA',
+  EnumAppThemeFonts.abel: 'ABEL',
+  EnumAppThemeFonts.actor: 'ACTOR',
+  EnumAppThemeFonts.bilbo: 'BILBO',
+  EnumAppThemeFonts.hindi: 'HIND',
+  EnumAppThemeFonts.lato: 'LATO',
+  EnumAppThemeFonts.roboto: 'ROBOTO',
+  EnumAppThemeFonts.zeyada: 'ZEYADA',
 };
 
 const _$EnumAppThemeFontsSizeEnumMap = {
-  EnumAppThemeFontsSize.D: 'D',
-  EnumAppThemeFontsSize.L: 'L',
-  EnumAppThemeFontsSize.XL: 'XL',
-  EnumAppThemeFontsSize.XXL: 'XXL',
-  EnumAppThemeFontsSize.XXXL: 'XXXL',
+  EnumAppThemeFontsSize.d: 'D',
+  EnumAppThemeFontsSize.l: 'L',
+  EnumAppThemeFontsSize.xl: 'XL',
+  EnumAppThemeFontsSize.xxl: 'XXL',
+  EnumAppThemeFontsSize.xxxl: 'XXXL',
 };

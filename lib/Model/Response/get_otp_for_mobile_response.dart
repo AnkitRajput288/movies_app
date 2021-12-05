@@ -1,10 +1,10 @@
-import 'package:deepika_assignment/ApiHandler/api_handler.dart';
-import 'package:deepika_assignment/Converter/AccountConverter/GetOtpForMobileResultResponseConverter.dart';
+import '../../ApiHandler/api_handler.dart';
+import '../../Converter/AccountConverter/get_otp_for_mobile_result_response_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'GetOtpForMobileResultResponse.dart';
+import 'get_otp_for_mobile_result_response.dart';
 
 part 'GetOtpForMobileResponse.g.dart';
-part 'GetOtpForMobileResponse.freezed.dart';
+part 'get_otp_for_mobile_response.freezed.dart';
 
 @freezed
 class GetOtpForMobileResponse with _$GetOtpForMobileResponse{

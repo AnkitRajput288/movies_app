@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'VerificationOtpRequest.g.dart';
-part 'VerificationOtpRequest.freezed.dart';
+part 'verification_otp_request.freezed.dart';
 
 @freezed
 class VerificationOtpRequest with _$VerificationOtpRequest{

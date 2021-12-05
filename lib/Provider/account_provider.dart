@@ -1,19 +1,17 @@
 import 'dart:async';
 
-import 'package:deepika_assignment/ApiHandler/api_handler.dart';
-import 'package:deepika_assignment/EventBus/EventBusUtils.dart';
-import 'package:deepika_assignment/Model/Request/Account/VerificationOtpRequest.dart';
-import 'package:deepika_assignment/Model/Response/GetOtpForMobileResponse.dart';
-import 'package:deepika_assignment/Model/Response/GetOtpForMobileResultResponse.dart';
-import 'package:deepika_assignment/Model/Response/VerificationOtpResponse.dart';
-import 'package:deepika_assignment/Model/Response/VerificationOtpResultResponse.dart';
-import 'package:deepika_assignment/SharedPref/SharedPrefUtil.dart';
-import 'package:deepika_assignment/SheetUtils/sheet_popup_utils.dart';
+import '../ApiHandler/api_handler.dart';
+import '../EventBus/event_bus_utils.dart';
+import '../Model/Request/Account/verification_otp_request.dart';
+import '../Model/Response/verification_otp_response.dart';
+import '../Model/Response/verification_otp_result_response.dart';
+import '../SharedPref/shared_pref_util.dart';
+import '../SheetUtils/sheet_popup_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/provider.dart';
 
 
-import 'ProviderUtils.dart';
+import 'provider_utils.dart';
 
 class AccountProvider extends ChangeNotifier {
 
@@ -32,7 +30,6 @@ class AccountProvider extends ChangeNotifier {
   int get _getLoggedInUserId => verificationOtpResponse?.results?.userLoginId ?? -1;
 
   bool _isApiCallingVerifyOtp = false;
-  bool _isApiCallingSendOtp = false;
 
   Function? _functionToExecuteIfLoggedIn;
 
@@ -46,8 +43,8 @@ class AccountProvider extends ChangeNotifier {
   }
 
   Future<void> _refreshLoginState() async {
-    this._isLogin = await SharedPrefUtil.isLogin();
-    this.verificationOtpResponse = await SharedPrefUtil.getLoginData();
+    _isLogin = await SharedPrefUtil.isLogin();
+    verificationOtpResponse = await SharedPrefUtil.getLoginData();
     notifyListeners();
   }
 
@@ -72,7 +69,7 @@ class AccountProvider extends ChangeNotifier {
   }
 
   void _executeLoggingFunctionAfterDelay() {
-    Timer.periodic(Duration(milliseconds: 500), (timer) {
+    Timer.periodic(const Duration(milliseconds: 500), (timer) {
       timer.cancel();
       _executeLoggingFunction();
     });

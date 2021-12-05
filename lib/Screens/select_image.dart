@@ -1,7 +1,7 @@
-import 'package:deepika_assignment/Constants/constant.dart';
+import '../Constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:deepika_assignment/Utils/list_of_objects_utils.dart';
+import '../Utils/list_of_objects_utils.dart';
 
 class SelectImage extends StatefulWidget {
   const SelectImage({Key? key}) : super(key: key);
@@ -23,9 +23,9 @@ class _SelectImageState extends State<SelectImage> {
               onTap: (){
                 Navigator.pop(context);
               },
-              child: Icon(Icons.arrow_back_ios,)),
+              child: const Icon(Icons.arrow_back_ios,)),
         ),
-        title: Text("Select Banner",style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0),),
+        title: const Text("Select Banner",style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0),),
       ),
       body: Container(
         padding: EdgeInsets.all(Constant.instance.appDefaultSpacing),

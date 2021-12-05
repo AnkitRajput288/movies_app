@@ -1,5 +1,7 @@
-import 'package:deepika_assignment/Network/Database/moor_database.dart';
-import 'package:deepika_assignment/Screens/common_movies_list.dart';
+import '../Utils/enum_utils.dart';
+
+import '../Network/Database/moor_database.dart';
+import 'common_movies_list.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -30,7 +32,7 @@ class _WatchedMoviesWidgetState extends State<WatchedMoviesWidget>{
           }
         });
 
-        return CommonMoviesList(movies: _listOfFilteredMovies, module: 'WatchedMovies',);
+        return CommonMoviesList(movies: _listOfFilteredMovies, module: EnumDashboardActiveScreenType.myWatched,);
       },
     );
   }

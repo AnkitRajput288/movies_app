@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'VerificationOtpResponse.dart';
+part of 'verification_otp_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

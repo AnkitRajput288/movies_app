@@ -1,31 +1,26 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:deepika_assignment/Model/Response/VerificationOtpResponse.dart';
+import '../Model/Response/verification_otp_response.dart';
 import 'package:flutter_udid/flutter_udid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:deepika_assignment/Network/app_theme_meta.dart';
-
-enum AppMetaDataType { MetaData, IpData }
+import '../Network/app_theme_meta.dart';
 
 class SharedPrefUtil {
-  static const String _KEY_LOGIN_DATA = "loginData";
-  static const String _THEME = "appTheme";
-  static const String _KEY_APP_UDID = "appUDID";
-  static const String _KEY_LANGUAGE = 'appAllLanguages';
-  static const String _KEY_USER_ECOMM_CART = 'userEcommCart';
+  static const String leyLoginData = "loginData";
+  static const String theme = "appTheme";
+  static const String keyAppUDID = "appUDID";
 
-  static const _DEFAULT_LOGIN_ID = -1;
+  static const defaultLoginId = -1;
 
   static List<String> alSpKeysToRemove = [
-    _KEY_LOGIN_DATA,
-    _KEY_APP_UDID,
-    _THEME,
-    _KEY_USER_ECOMM_CART,
+    leyLoginData,
+    keyAppUDID,
+    theme,
   ];
 
   static Future<bool> _saveAppThemeDataJson(var _jsonToSave) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_THEME, _jsonToSave);
+    await prefs.setString(theme, _jsonToSave);
     return true;
   }
 
@@ -43,7 +38,7 @@ class SharedPrefUtil {
   static Future<AppThemeMeta> getAppTheme() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      String? objectSP = prefs.getString(_THEME);
+      String? objectSP = prefs.getString(theme);
       if (objectSP != null) {
         Map<String, dynamic> mapSP = json.decode(objectSP);
 
@@ -64,7 +59,7 @@ class SharedPrefUtil {
     try {
       String dataToSave = await FlutterUdid.consistentUdid;
       final prefs = await SharedPreferences.getInstance();
-      prefs.setString(_KEY_APP_UDID, dataToSave);
+      prefs.setString(keyAppUDID, dataToSave);
       return true;
     } catch (e) {
       return false;
@@ -74,7 +69,7 @@ class SharedPrefUtil {
   static Future<String> getAppUDID() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      String? spData = prefs.getString(_KEY_APP_UDID);
+      String? spData = prefs.getString(keyAppUDID);
 
       spData ??= await FlutterUdid.consistentUdid;
       return spData;
@@ -91,7 +86,7 @@ class SharedPrefUtil {
   ///
   static Future<bool> _saveLoginDataJson(String loginData) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(_KEY_LOGIN_DATA, loginData);
+    prefs.setString(leyLoginData, loginData);
     return true;
   }
 
@@ -109,13 +104,13 @@ class SharedPrefUtil {
   static Future<VerificationOtpResponse?> getLoginData() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      String? loginData = prefs.getString(_KEY_LOGIN_DATA);
+      String? loginData = prefs.getString(leyLoginData);
 
       if (loginData != null) {
         Map<String, dynamic> user = json.decode(loginData);
 
         VerificationOtpResponse loginRes =
-            new VerificationOtpResponse.fromJson(user);
+            VerificationOtpResponse.fromJson(user);
         return loginRes;
       } else {
         return null;
@@ -137,9 +132,9 @@ class SharedPrefUtil {
   static Future<num> getLoggedInUserId() async {
     try {
       final loginRes = await getLoginData();
-      return loginRes?.results?.userLoginId ?? _DEFAULT_LOGIN_ID;
+      return loginRes?.results?.userLoginId ?? defaultLoginId;
     } catch (e) {
-      return _DEFAULT_LOGIN_ID;
+      return defaultLoginId;
     }
   }
 
@@ -155,21 +150,18 @@ class SharedPrefUtil {
   static Future<bool> isLogin() async {
     try {
       final _userId = await getLoggedInUserId();
-      return (_userId != _DEFAULT_LOGIN_ID) && (_userId > 0);
+      return (_userId != defaultLoginId) && (_userId > 0);
     } catch (e) {
       return false;
     }
   }
 
   static Future<void> logout() async {
-    //var response = await SharedPrefUtil.getLoginData();
     final prefs = await SharedPreferences.getInstance();
     for (int index = 0; index < alSpKeysToRemove.length; index++) {
       String spKeysToRemove = alSpKeysToRemove[index];
       await prefs.remove(spKeysToRemove);
       prefs.clear();
-      var isLoginNow = prefs.containsKey(_KEY_LOGIN_DATA);
-      print("is login now available -> $isLoginNow");
     }
   }
 

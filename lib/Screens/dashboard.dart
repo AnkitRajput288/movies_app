@@ -1,24 +1,25 @@
-import 'package:deepika_assignment/Constants/constant.dart';
-import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
-import 'package:deepika_assignment/Provider/ProviderUtils.dart';
-import 'package:deepika_assignment/Provider/account_provider.dart';
-import 'package:deepika_assignment/Screens/all_movies_widget.dart';
-import 'package:deepika_assignment/Screens/my_movies_widget.dart';
-import 'package:deepika_assignment/Screens/watched_movies_widget.dart';
-import 'package:deepika_assignment/SheetUtils/sheet_popup_utils.dart';
-import 'package:deepika_assignment/Utils/color_utils.dart';
-import 'package:deepika_assignment/Utils/list_of_objects_utils.dart';
-import 'package:deepika_assignment/Utils/toast_utils.dart';
+import '../Constants/constant.dart';
+import '../CustomWidget/custom_widgets.dart';
+import '../Provider/provider_utils.dart';
+import '../Provider/account_provider.dart';
+import 'all_movies_widget.dart';
+import 'my_movies_widget.dart';
+import 'watched_movies_widget.dart';
+import '../SheetUtils/sheet_popup_utils.dart';
+import '../Utils/color_utils.dart';
+import '../Utils/list_of_objects_utils.dart';
+import '../Utils/toast_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:deepika_assignment/Utils/app_utils.dart';
-import 'package:deepika_assignment/Utils/enum_utils.dart';
+import '../Utils/app_utils.dart';
+import '../Utils/enum_utils.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 import '../main.dart';
-import 'common_movies_list.dart';
 
 
 class Dashboard extends StatefulHookWidget {
+  const Dashboard({Key? key}) : super(key: key);
+
   @override
   _DashboardState createState() => _DashboardState();
 }
@@ -34,7 +35,7 @@ class _DashboardState extends State<Dashboard>
   bool _isLogin = false;
 
   EnumDashboardActiveScreenType _activeScreen =
-      EnumDashboardActiveScreenType.ALL;
+      EnumDashboardActiveScreenType.all;
 
   int _tabSelected = 0;
   PageController pageController = PageController(
@@ -74,9 +75,9 @@ class _DashboardState extends State<Dashboard>
   }
 
   void _initBottomTabs() {
-    homePage = AllMoviesWidget();
-    myMovies = MyMoviesWidget();
-    myWatched = WatchedMoviesWidget();
+    homePage = const AllMoviesWidget();
+    myMovies = const MyMoviesWidget();
+    myWatched = const WatchedMoviesWidget();
   }
 
 
@@ -85,59 +86,56 @@ class _DashboardState extends State<Dashboard>
   Widget build(BuildContext context) {
     _verificationOtpProvider = useProvider(accountProvider);
     _isLogin = _verificationOtpProvider.isLogin;
-   var _userId = _verificationOtpProvider.getVerificationOtpResponse?.userLoginId ?? 0;
 
-    return Container(
-      child: Stack(
-        children: <Widget>[
-          Scaffold(
-            resizeToAvoidBottomInset: true,
-            appBar: AppBar(
-              title: _appLogoWithUserName(),
-              actions: [
-                _logOutUI()
-              ],
-            ),
-            body: SafeArea(child: buildPageView()),
-
-            bottomNavigationBar: _buildBottomAppBar(),
-
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.black87,
-              child: const Icon(Icons.add, color: Colors.white,),
-              onPressed: (){
-                AccountProvider.checkLoginAndMoveRed(context, () {
-                  SheetPopupUtils.instance.showBottomSheetAddMovie(context);
-                });
-              },
-            ),
+    return Stack(
+      children: <Widget>[
+        Scaffold(
+          resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+            title: _appLogoWithUserName(),
+            actions: [
+              _logOutUI()
+            ],
           ),
-        ],
-      ),
+          body: SafeArea(child: buildPageView()),
+
+          bottomNavigationBar: _buildBottomAppBar(),
+
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.black87,
+            child: const Icon(Icons.add, color: Colors.white,),
+            onPressed: (){
+              AccountProvider.checkLoginAndMoveRed(context, () {
+                SheetPopupUtils.instance.showBottomSheetAddMovie(context);
+              });
+            },
+          ),
+        ),
+      ],
     );
   }
 
   Widget _buildBottomAppBar(){
     return BottomAppBar(
-      child: Container(
+      child: SizedBox(
         height: 48,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
               child: getNavigationButton('All', () {
-                _changeScreenTo(EnumDashboardActiveScreenType.ALL);
-              }, EnumDashboardActiveScreenType.ALL),
+                _changeScreenTo(EnumDashboardActiveScreenType.all);
+              }, EnumDashboardActiveScreenType.all),
             ),
             Expanded(
               child: getNavigationButton('My Movies', () {
-                _changeScreenTo(EnumDashboardActiveScreenType.B);
-              }, EnumDashboardActiveScreenType.B),
+                _changeScreenTo(EnumDashboardActiveScreenType.myMovies);
+              }, EnumDashboardActiveScreenType.myMovies),
             ),
             Expanded(
               child: getNavigationButton('My Watched', () {
-                _changeScreenTo(EnumDashboardActiveScreenType.C);
-              }, EnumDashboardActiveScreenType.C),
+                _changeScreenTo(EnumDashboardActiveScreenType.myWatched);
+              }, EnumDashboardActiveScreenType.myWatched),
             ),
           ],
         ),
@@ -157,7 +155,7 @@ class _DashboardState extends State<Dashboard>
     setState(() {
       _tabSelected = index;
       pageController.animateToPage(index,
-          duration: Duration(milliseconds: 10), curve: Curves.ease);
+          duration: const Duration(milliseconds: 10), curve: Curves.ease);
     });
   }
 
@@ -167,7 +165,7 @@ class _DashboardState extends State<Dashboard>
 
   Widget buildPageView() {
     return PageView(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       pageSnapping: false,
       controller: pageController,
       onPageChanged: (index) {
@@ -189,15 +187,15 @@ class _DashboardState extends State<Dashboard>
     }
 
     switch (_activeScreen) {
-      case EnumDashboardActiveScreenType.ALL:
+      case EnumDashboardActiveScreenType.all:
         selectedTab(0);
         break;
-      case EnumDashboardActiveScreenType.B:
+      case EnumDashboardActiveScreenType.myMovies:
         AccountProvider.checkLoginAndMoveRed(context, () {
           selectedTab(1);
         });
         break;
-      case EnumDashboardActiveScreenType.C:
+      case EnumDashboardActiveScreenType.myWatched:
         AccountProvider.checkLoginAndMoveRed(context, () {
           selectedTab(2);
         });
@@ -306,7 +304,7 @@ class _DashboardState extends State<Dashboard>
       children: [
        const Text('Movies App'),
         const  SizedBox(width: 8.0,),
-          Text(_name, style: TextStyle(fontSize: 12.0),),
+          Text(_name, style: const TextStyle(fontSize: 12.0),),
       ],
     );
   }

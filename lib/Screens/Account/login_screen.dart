@@ -1,9 +1,7 @@
-import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
-import 'package:deepika_assignment/SheetUtils/sheet_popup_utils.dart';
-import 'package:deepika_assignment/Utils/color_utils.dart';
-import 'package:deepika_assignment/Utils/toast_utils.dart';
-import 'package:deepika_assignment/Utils/custom_text.dart';
-import 'package:deepika_assignment/Utils/size_utils.dart';
+import '../../CustomWidget/custom_widgets.dart';
+import '../../SheetUtils/sheet_popup_utils.dart';
+import '../../Utils/toast_utils.dart';
+import '../../Utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -17,27 +15,16 @@ class LoginScreen extends StatefulHookWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController mobileNumberController =  TextEditingController();
 
-  var _commonPadding = SizeUtils.instance.appDefaultSpacing * 2;
-  var _defaultPadding = SizeUtils.instance.appDefaultSpacing;
-  var _defaultHeight = CustomWidget.getDefaultHeightSizedBox();
-  var _doubleHeight = CustomWidget.getDefaultHeightSizedBox(height: SizeUtils.instance.appDefaultSpacing * 2);
+  final _commonPadding = SizeUtils.instance.appDefaultSpacing * 2;
+  final _defaultPadding = SizeUtils.instance.appDefaultSpacing;
+  final _defaultHeight = CustomWidget.getDefaultHeightSizedBox();
+  final _doubleHeight = CustomWidget.getDefaultHeightSizedBox(height: SizeUtils.instance.appDefaultSpacing * 2);
 
-  /*Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(SizeUtils.instance.sideSheetRadius),
-      ),
-      child: _buildMainWidget(),
-    );
-  }
-*/
   @override
   Widget build(BuildContext context){
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
         resizeToAvoidBottomInset: false,
-      //  resizeToAvoidBottomPadding: false,
         body: SingleChildScrollView(
         reverse: true,
         child: Padding(
@@ -50,32 +37,30 @@ class _LoginScreenState extends State<LoginScreen> {
 
 ///Login Complete Widget Start
   Widget _buildMainWidget() {
-    return Container(
-      child: Column(
-        children: [
-          _closePageButton(),
-          Padding(
-            padding: EdgeInsets.only(left: _commonPadding, right: _commonPadding, bottom: _commonPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _screenTitle(),
-                _doubleHeight,
-                _mobileNumberTextField(),
-                _doubleHeight,
-                _submitButton(),
-                _defaultHeight,
-                _privacyCommonText(),
-              ],
-            ),
+    return Column(
+      children: [
+        _closePageButton(),
+        Padding(
+          padding: EdgeInsets.only(left: _commonPadding, right: _commonPadding, bottom: _commonPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _screenTitle(),
+              _doubleHeight,
+              _mobileNumberTextField(),
+              _doubleHeight,
+              _submitButton(),
+              _defaultHeight,
+              _privacyCommonText(),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _mobileNumberTextField(){
-    return  CustomWidget.getTextField(context, mobileNumberController, "Enter your mobile number",);
+    return  CustomWidget.getTextFieldForMobile(context, mobileNumberController, "Enter your mobile number",);
   }
 
   Widget _screenTitle(){
@@ -116,7 +101,6 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       Navigator.pop(context);
       SheetPopupUtils.instance.showBottomSheetOTPFlow(context, _mobileNumber, _otp);
-      //getOtpForMobileApiRequest();
     }
   }
 /// API Widget End

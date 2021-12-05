@@ -7,6 +7,6 @@ class Movies extends Table{
   TextColumn get name => text()();
   TextColumn get detail => text()();
   IntColumn get directorID => integer()();
-  BoolColumn get isMovieWatched => boolean().withDefault(Constant(false))();
+  BoolColumn get isMovieWatched => boolean().withDefault(const Constant(false))();
 
 }

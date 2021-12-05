@@ -1,18 +1,14 @@
 
 import 'dart:math';
 
-import 'package:deepika_assignment/Model/card_category_object.dart';
-import 'package:deepika_assignment/Network/Database/moor_database.dart';
-import 'package:deepika_assignment/Utils/custom_extension.dart';
+import '../Network/Database/moor_database.dart';
+import 'custom_extension.dart';
 
 
 class ListOfObjectsUtils{
 
   static final instance = ListOfObjectsUtils();
 
-  static int _directorId_A = 1;
-
-  static var card_directorIdA = CardCategoryObject(_directorId_A, 'A');
 
   final List<String> _listOfNames = [
     'CAPTAIN MARVEL',

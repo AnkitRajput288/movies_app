@@ -1,4 +1,4 @@
-import 'package:deepika_assignment/Model/Movies.dart';
+import '../../Model/movies.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 part 'moor_database.g.dart';
 

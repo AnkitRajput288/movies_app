@@ -1,11 +1,11 @@
-import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
-import 'package:deepika_assignment/Utils/size_utils.dart';
+import '../CustomWidget/custom_widgets.dart';
+import 'size_utils.dart';
 import 'package:flutter/material.dart';
 
 class CommonEmptyScreenUI extends StatefulWidget {
 
   String? text;
-  CommonEmptyScreenUI({this.text});
+  CommonEmptyScreenUI({Key? key, this.text}) : super(key: key);
 
   @override
   _CommonEmptyScreenUIState createState() => _CommonEmptyScreenUIState();

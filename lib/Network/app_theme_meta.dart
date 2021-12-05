@@ -1,8 +1,8 @@
 
 import 'dart:io';
 
-import 'package:deepika_assignment/Utils/app_enums.dart';
-import 'package:deepika_assignment/Utils/color_utils.dart';
+import '../Utils/app_enums.dart';
+import '../Utils/color_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -20,20 +20,20 @@ class AppThemeMeta with _$AppThemeMeta {
   factory AppThemeMeta.fromJson(Map<String, dynamic> json) => _$AppThemeMetaFromJson(json);
 
   static AppThemeMeta getDefaultTheme() {
-    return AppThemeMeta(EnumAppThemeParentBackground.LIGHT, EnumAppThemeChildColor.SKY_BLUE, EnumAppThemeFonts.ROBOTO, EnumAppThemeFontsSize.D);
+    return const AppThemeMeta(EnumAppThemeParentBackground.light, EnumAppThemeChildColor.skyBlue, EnumAppThemeFonts.roboto, EnumAppThemeFontsSize.d);
   }
 
   double getFontSize() {
     switch(enumFontSize) {
-      case EnumAppThemeFontsSize.D:
+      case EnumAppThemeFontsSize.d:
         return 16.0;
-      case EnumAppThemeFontsSize.L:
+      case EnumAppThemeFontsSize.l:
         return 18.0;
-      case EnumAppThemeFontsSize.XL:
+      case EnumAppThemeFontsSize.xl:
         return 20.0;
-      case EnumAppThemeFontsSize.XXL:
+      case EnumAppThemeFontsSize.xxl:
         return 22.0;
-      case EnumAppThemeFontsSize.XXXL:
+      case EnumAppThemeFontsSize.xxxl:
         return 24.0;
       default:
         return 16.0;
@@ -64,49 +64,37 @@ class AppThemeMeta with _$AppThemeMeta {
 
   String getCurrentThemeText() {
     switch(enumParentBackground) {
-      case EnumAppThemeParentBackground.LIGHT:
+      case EnumAppThemeParentBackground.light:
         return 'Light';
-        break;
-      case EnumAppThemeParentBackground.DIM:
+      case EnumAppThemeParentBackground.din:
         return 'Dim';
-        break;
-      case EnumAppThemeParentBackground.DARK:
+      case EnumAppThemeParentBackground.dark:
         return 'Dark';
-        break;
     }
 
-    return '';
   }
 
   String getCurrentThemeTextByEnum(EnumAppThemeParentBackground enumParentBackground) {
     switch(enumParentBackground) {
-      case EnumAppThemeParentBackground.LIGHT:
+      case EnumAppThemeParentBackground.light:
         return 'Light';
-        break;
-      case EnumAppThemeParentBackground.DIM:
+      case EnumAppThemeParentBackground.din:
         return 'Dim';
-        break;
-      case EnumAppThemeParentBackground.DARK:
+      case EnumAppThemeParentBackground.dark:
         return 'Dark';
-        break;
     }
 
-    return '';
   }
 
   Color getTextColorOnThemeByEnum(EnumAppThemeParentBackground enumParentBackground) {
     switch(enumParentBackground) {
-      case EnumAppThemeParentBackground.LIGHT:
+      case EnumAppThemeParentBackground.light:
         return ColorUtils.blackColor;
-        break;
-      case EnumAppThemeParentBackground.DIM:
+      case EnumAppThemeParentBackground.din:
         return ColorUtils.whiteColor;
-        break;
-      case EnumAppThemeParentBackground.DARK:
+      case EnumAppThemeParentBackground.dark:
         return ColorUtils.whiteColor;
-        break;
     }
 
-    return ColorUtils.whiteColor;
   }
 }

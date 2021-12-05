@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:deepika_assignment/Network/app_theme_meta.dart';
+import '../Network/app_theme_meta.dart';
 import 'package:flutter/material.dart';
 import 'color_utils.dart';
 import 'app_enums.dart';
@@ -108,7 +108,7 @@ class ThemeUtils {
   
   void _setParentThemeData() {
     switch (_themeModel?.enumParentBackground) {
-      case EnumAppThemeParentBackground.LIGHT:
+      case EnumAppThemeParentBackground.light:
         var _textBlackColor = ColorUtils.textHeadingBlackColor;
         var _textLightBlackColor = ColorUtils.textSubHeadingCharcoalBlackColor;
         var _textGreyColor = ColorUtils.greyTextColor;
@@ -142,7 +142,7 @@ class ThemeUtils {
         textCustomColorHeading1 = _textCustomColorHeading1;
 
         break;
-      case EnumAppThemeParentBackground.DIM:
+      case EnumAppThemeParentBackground.din:
         var _commonTextColor = ColorUtils.textMainCustomDimColor;
         var _commonBackgroundColor = ColorUtils.backgroundColorDark;
         var _commonCardBackgroundColor = ColorUtils.cardDimColor;
@@ -164,7 +164,7 @@ class ThemeUtils {
         textCustomColorHeading1 = _textCustomColorHeading1;
 
         break;
-      case EnumAppThemeParentBackground.DARK:
+      case EnumAppThemeParentBackground.dark:
         var _commonTextColor = ColorUtils.textMainCustomDarkColor;
         var _commonBackgroundColor = ColorUtils.blackColor;
         var _commonCardBackgroundColor = ColorUtils.cardDarkColor;
@@ -191,22 +191,22 @@ class ThemeUtils {
 
   void _setChildColorThemeData() {
     switch (_themeModel?.enumChildColor) {
-      case EnumAppThemeChildColor.SKY_BLUE:
+      case EnumAppThemeChildColor.skyBlue:
         _setChildColorThemeDataValues(ColorUtils.themeChildColorSkyBlue);
         break;
-      case EnumAppThemeChildColor.DARK_YELLOW:
+      case EnumAppThemeChildColor.darkYellow:
         _setChildColorThemeDataValues(ColorUtils.themeChildColorDarkYellow);
         break;
-      case EnumAppThemeChildColor.FLOWER_RED:
+      case EnumAppThemeChildColor.flowerRed:
         _setChildColorThemeDataValues(ColorUtils.themeChildColorFlowerRed);
         break;
-      case EnumAppThemeChildColor.OCTOPUS_VIOLET:
+      case EnumAppThemeChildColor.octopusViolet:
         _setChildColorThemeDataValues(ColorUtils.themeChildColorOctopusViolet);
         break;
-      case EnumAppThemeChildColor.FIRE_ORANGE:
+      case EnumAppThemeChildColor.fireOrange:
         _setChildColorThemeDataValues(ColorUtils.themeChildColorFireOrange);
         break;
-      case EnumAppThemeChildColor.GUAVA_GREEN:
+      case EnumAppThemeChildColor.guavaGreen:
         _setChildColorThemeDataValues(ColorUtils.themeChildColorGuavaGreen);
         break;
     }
@@ -243,7 +243,7 @@ class ThemeUtils {
         OutlinedButtonThemeData(style: _getOutlineButtonStyle());
     elevatedButtonThemeData =
         ElevatedButtonThemeData(style: _getElevatedButtonStyle());
-    floatingActionButtonThemeData = FloatingActionButtonThemeData();
+    floatingActionButtonThemeData = const FloatingActionButtonThemeData();
   }
 
   TextStyle getTextStyle(Color? _textColor) {

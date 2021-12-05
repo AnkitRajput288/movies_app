@@ -1,19 +1,18 @@
 
-import 'package:deepika_assignment/Model/Movies.dart';
-import 'package:deepika_assignment/Model/Request/Account/VerificationOtpRequest.dart';
-import 'package:deepika_assignment/Model/Response/VerificationOtpResponse.dart';
-import 'package:deepika_assignment/Model/Response/VerificationOtpResultResponse.dart';
-import 'package:deepika_assignment/Network/Database/moor_database.dart';
-import 'package:deepika_assignment/Utils/list_of_objects_utils.dart';
+import '../Model/Request/Account/verification_otp_request.dart';
+import '../Model/Response/verification_otp_response.dart';
+import '../Model/Response/verification_otp_result_response.dart';
+import '../Network/Database/moor_database.dart';
+import '../Utils/list_of_objects_utils.dart';
 
 
 class ApiHandler{
-  static const API_SUCCESS_CODE = 200;
-  static const API_SUCCESS_TRUE = true;
-  static const API_SUCCESS_FALSE = false;
+  static const apiSuccessCode = 200;
+  static const apiSuccessTrue = true;
+  static const apiSuccessFalse = false;
 
   static bool isApiSuccess(bool? status, int? subCode) {
-    return (subCode != null && subCode == API_SUCCESS_CODE) && (status ?? API_SUCCESS_FALSE);
+    return (subCode != null && subCode == apiSuccessCode) && (status ?? apiSuccessFalse);
   }
 
   static final instance = ApiHandler();

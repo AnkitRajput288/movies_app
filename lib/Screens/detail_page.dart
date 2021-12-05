@@ -1,8 +1,8 @@
-import 'package:deepika_assignment/CustomWidget/custom_widgets.dart';
-import 'package:deepika_assignment/Network/Database/moor_database.dart';
-import 'package:deepika_assignment/Provider/account_provider.dart';
-import 'package:deepika_assignment/SheetUtils/sheet_popup_utils.dart';
-import 'package:deepika_assignment/Utils/color_utils.dart';
+import '../CustomWidget/custom_widgets.dart';
+import '../Network/Database/moor_database.dart';
+import '../Provider/account_provider.dart';
+import '../SheetUtils/sheet_popup_utils.dart';
+import '../Utils/color_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -36,17 +36,15 @@ class _DetailPageState extends State<DetailPage> {
               onTap: (){
                 Navigator.pop(context);
               },
-              child: Icon(Icons.arrow_back_ios,)),
+              child: const Icon(Icons.arrow_back_ios,)),
         ),
         title:const Text("Detail Page",style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0),),
         actions: [
           _cardActionUI(),
         ],
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: _buildDetailPage(),
-        ),
+      body: SingleChildScrollView(
+        child: _buildDetailPage(),
       ),
     );
   }
@@ -56,7 +54,7 @@ class _DetailPageState extends State<DetailPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
             width: width,
             child: Image.asset(movieDetail?.image ?? "", fit: BoxFit.fitWidth,)),
         CustomWidget.getDefaultHeightSizedBox(),
